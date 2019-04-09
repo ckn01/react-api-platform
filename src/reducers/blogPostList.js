@@ -14,5 +14,7 @@ export default(state = {
                 ...state,
                 posts: state.posts? state.posts.concat(action.data) : state.posts
             };
+        default:
+            return state;
     }
 };
