@@ -10,7 +10,6 @@ export class BlogPost extends React.Component {
             return (<Message message="Blog post does not exist." />);
         }
 
-        console.log(post);
         return (
             <div className="card mb-3 mt-3 shadow-sm">
                 <div className="card-body">

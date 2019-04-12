@@ -13,7 +13,7 @@ export default(state = {
         case COMMENT_LIST_RECEIVED:
             return {
                 ...state,
-                commentList: action.data,
+                commentList: action.data['hydra:member'],
                 isFetching: false
             };
         case COMMENT_LIST_UNLOAD:
