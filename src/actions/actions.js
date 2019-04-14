@@ -103,3 +103,13 @@ export const commentListAdd = () => ({
         title: 'A newly added blog post'
     }
 });
+
+export const userLoginAttempt = (username, password) => {
+    return (dispatch) => {
+        return requests.post('/login_check', {username, password}).then(
+            response => console.log(response)
+        ).catch(error => {
+            console.log('login failed')
+        })
+    };
+};

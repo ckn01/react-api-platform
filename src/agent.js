@@ -7,5 +7,7 @@ const responseBody = resopnse => resopnse.body;
 
 export const requests = {
     get: (url) =>
-        superagent.get(`${API_ROOT}${url}`).then(responseBody)
+        superagent.get(`${API_ROOT}${url}`).then(responseBody),
+    post: (url, body = null) =>
+        superagent.post(`${API_ROOT}${url}`, body).then(responseBody)
 };
