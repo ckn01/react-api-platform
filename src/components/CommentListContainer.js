@@ -25,7 +25,7 @@ class CommentListContainer extends React.Component {
     }
 
     render() {
-        const { isFetching, commentList, isAuthenticated } = this.props;
+        const { isFetching, commentList, isAuthenticated, blogPostId } = this.props;
 
         if (isFetching) {
             return (<Spinner />);
@@ -33,8 +33,8 @@ class CommentListContainer extends React.Component {
 
         return (
             <div>
-                <CommentList commentList={commentList} />
-                {isAuthenticated && <CommentForm />}
+                <CommentList commentList={ commentList } />
+                {isAuthenticated && <CommentForm blogPostId={ blogPostId } />}
             </div>
         );
     }

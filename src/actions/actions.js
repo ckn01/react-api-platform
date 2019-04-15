@@ -6,7 +6,8 @@ import { BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_ERROR, BLOG_POST_LIST_RECEIVED, 
         USER_PROFILE_REQUEST,
         USER_PROFILE_ERROR,
         USER_PROFILE_RECEIVED,
-        USER_SET_ID} from "./constants";
+        USER_SET_ID,
+        COMMENT_ADDED} from "./constants";
 import { SubmissionError } from 'redux-form';
 
 export const blogPostListRequest = () => ({
@@ -109,6 +110,19 @@ export const commentListAdd = () => ({
         title: 'A newly added blog post'
     }
 });
+
+export const commentAdded = (comment) => ({
+    type: COMMENT_ADDED,
+    comment
+});
+
+export const commentAdd = (comment, blogPostId) => (dispatch => requests.post(
+    '/comments',
+    {
+        content: comment,
+        blogPost: `/api/blog_posts/${blogPostId}`
+    }
+).then(response => dispatch(commentAdded(response))));
 
 export const userLoginAttempt = (username, password) => {
     return (dispatch) => {
