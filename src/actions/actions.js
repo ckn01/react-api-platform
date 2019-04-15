@@ -5,7 +5,8 @@ import { BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_ERROR, BLOG_POST_LIST_RECEIVED, 
         USER_LOGIN_SUCCESS, 
         USER_PROFILE_REQUEST,
         USER_PROFILE_ERROR,
-        USER_PROFILE_RECEIVED} from "./constants";
+        USER_PROFILE_RECEIVED,
+        USER_SET_ID} from "./constants";
 import { SubmissionError } from 'redux-form';
 
 export const blogPostListRequest = () => ({
@@ -120,6 +121,11 @@ export const userLoginAttempt = (username, password) => {
         })
     };
 };
+
+export const userSetId = (userId) => ({
+    type: USER_SET_ID,
+    userId
+});
 
 export const userLoginSuccess = (token, userId) => ({
     type: USER_LOGIN_SUCCESS,
