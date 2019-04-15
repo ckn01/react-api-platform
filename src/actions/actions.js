@@ -135,8 +135,9 @@ export const userProfileError = () => ({
     type: USER_PROFILE_ERROR
 });
 
-export const userProfileReceived = (userData) => ({
+export const userProfileReceived = (userId, userData) => ({
     type: USER_PROFILE_RECEIVED,
+    userId,
     userData
 });
 
@@ -144,7 +145,7 @@ export const userProfileFetch = userId => (
     dispatch => {
         dispatch(userProfileRequest());
         return requests.get(`/users/${userId}`, true).then(
-            response => dispatch(userProfileReceived(response))
+            response => dispatch(userProfileReceived(userId, response))
         ).catch(error => dispatch(userProfileError()));
     }
 );
