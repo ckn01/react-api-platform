@@ -122,7 +122,13 @@ export const commentAdd = (comment, blogPostId) => (dispatch => requests.post(
         content: comment,
         blogPost: `/api/blog_posts/${blogPostId}`
     }
-).then(response => dispatch(commentAdded(response))));
+).then(
+    response => dispatch(commentAdded(response))
+).catch(error => {
+    throw new SubmissionError({
+        content: 'This is an error'
+    });
+}));
 
 export const userLoginAttempt = (username, password) => {
     return (dispatch) => {
