@@ -133,7 +133,7 @@ export const userLoginAttempt = (username, password) => {
     return (dispatch) => {
         return requests.post('/login_check', {username, password}, false).then(
             response => dispatch(userLoginSuccess(response.token, response.id))
-        ).catch(error => {
+        ).catch(() => {
             throw new SubmissionError({
                 _error: 'Username or password is invalid'
             });
@@ -160,8 +160,9 @@ export const userProfileRequest = () => ({
     type: USER_PROFILE_REQUEST
 });
 
-export const userProfileError = () => ({
-    type: USER_PROFILE_ERROR
+export const userProfileError = (userId) => ({
+    type: USER_PROFILE_ERROR,
+    userId
 });
 
 export const userProfileReceived = (userId, userData) => ({
@@ -175,6 +176,6 @@ export const userProfileFetch = userId => (
         dispatch(userProfileRequest());
         return requests.get(`/users/${userId}`, true).then(
             response => dispatch(userProfileReceived(userId, response))
-        ).catch(error => dispatch(userProfileError()));
+        ).catch(() => dispatch(userProfileError(userId)));
     }
 );
