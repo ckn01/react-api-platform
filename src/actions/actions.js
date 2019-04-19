@@ -2,7 +2,7 @@ import { requests } from "../agent";
 import { BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_ERROR, BLOG_POST_LIST_RECEIVED, BLOG_POST_LIST_ADD,
         BLOG_POST_REQUEST, BLOG_POST_ERROR, BLOG_POST_RECEIVED, BLOG_POST_ADD, BLOG_POST_UNLOAD,
         COMMENT_LIST_REQUEST, COMMENT_LIST_ERROR, COMMENT_LIST_RECEIVED, COMMENT_LIST_ADD, COMMENT_LIST_UNLOAD, 
-        USER_LOGIN_SUCCESS, 
+        USER_LOGIN_SUCCESS, USER_LOGOUT,
         USER_PROFILE_REQUEST,
         USER_PROFILE_ERROR,
         USER_PROFILE_RECEIVED,
@@ -144,6 +144,10 @@ export const userLoginAttempt = (username, password) => {
 export const userSetId = (userId) => ({
     type: USER_SET_ID,
     userId
+});
+
+export const userLogout = () => ({
+    type: USER_LOGOUT
 });
 
 export const userLoginSuccess = (token, userId) => ({

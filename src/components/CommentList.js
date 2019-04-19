@@ -9,7 +9,7 @@ export class CommentList extends React.Component {
         const { commentList } = this.props;
         console.log(commentList);
 
-        if (null === commentList) {
+        if (null === commentList || 0 === commentList.length) {
             return (<Message message="No comments yet" />);
         }
 
