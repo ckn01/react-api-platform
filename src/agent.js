@@ -22,5 +22,5 @@ export const requests = {
         console.log(token);
         return superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin(secured)).then(responseBody);
     },
-    setToken: (newJwtToken) => token = newJwtToken
+    setToken: newJwtToken => token = newJwtToken
 };
