@@ -1,9 +1,10 @@
 import React from 'react';
+import classNames from "classnames";
 
 export class Paginator extends React.Component {
     constructor(props) {
         super(props);
-        const pageCount = 10;
+        const { pageCount } = this.props;
         this.range = [];
 
         for (let i = 1; i <= pageCount; i++) {
@@ -12,6 +13,8 @@ export class Paginator extends React.Component {
     }
 
     render() {
+        const { currentPage } = this.props;
+
         return (
             <nav>
                 <ul className="pagination">
@@ -24,7 +27,7 @@ export class Paginator extends React.Component {
                     {
                         this.range.map(page => {
                             return (
-                                <li key={ page } className="page-item">
+                                <li key={ page } className={classNames('page-item', {'active': currentPage === page})} >
                                     <button className="page-link">
                                         { page }
                                     </button>
