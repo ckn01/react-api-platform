@@ -12,20 +12,31 @@ class BlogPostList extends React.Component {
         }
 
         return (<div>
-            {posts && posts.map(post => (
-                <div className="card mb-3 mt-3 shadow-sm" key={ post.id }>
-                    <div className="card-body">
-                        <h3>
-                            <Link to={`/blog-post/${post.id}`}>{ post.title }</Link>
-                        </h3>
-                        <p className="card-text border-top">
-                            <small className="text-muted">
-                                { timeago().format(post.published) }
-                            </small>
-                        </p>
+            {posts && posts.map(post => {
+                const commentCount = post.comments.length
+                const comments = (commentCount > 1) ? `${commentCount} comments` : `${commentCount} comment`;
+
+                return (
+                    <div className="card mb-3 mt-3 shadow-sm" key={ post.id }>
+                        <div className="card-body">
+                            <h3>
+                                <Link to={`/blog-post/${post.id}`}>{ post.title }</Link>
+                            </h3>
+                            <p className="card-text">
+                                <small className="text-muted font-italic">
+                                    { commentCount > 0 && comments }
+                                    { commentCount === 0 && 'No comments yet' }
+                                </small>
+                            </p>
+                            <p className="card-text border-top">
+                                <small className="text-muted">
+                                    { timeago().format(post.published) }
+                                </small>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            ))}
+                );
+            })}
         </div>)
     }
 }
