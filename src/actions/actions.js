@@ -150,6 +150,24 @@ export const userLoginAttempt = (username, password) => {
     };
 };
 
+// export const userRegister = (username, password, retypedPassword, email, name) => {
+//     return (dispatch) => {
+//         return requests.post('/users', {username, password, retypedPassword, email, name}, false)
+//             .catch(error => {
+//                 throw new SubmissionError(parseApiErrors(error));
+//             });
+//     };
+// };
+
+export const userRegister = (values) => {
+    return (dispatch) => {
+        return requests.post('/users', values, false)
+            .catch(error => {
+                throw new SubmissionError(parseApiErrors(error));
+            });
+    };
+};
+
 export const userSetId = (userId) => ({
     type: USER_SET_ID,
     userId
