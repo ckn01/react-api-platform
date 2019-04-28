@@ -3,6 +3,10 @@ import { Field, reduxForm } from 'redux-form';
 import { renderField } from '../form';
 
 class ConfirmationForm extends React.Component {
+    onSubmit(values) {
+
+    }
+
     render() {
         const { handleSubmit, submitting } = this.props;
 
@@ -10,7 +14,7 @@ class ConfirmationForm extends React.Component {
             <div className="card mt-3 mb-6 shadow-sm">
                 <div className="card-body">
                     <p className="card-text">
-                        Please confirm` your account with token you received in e-mail.
+                        Please confirm your account with token you received in e-mail.
                     </p>
                     <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
                         <Field name="confirmationToken" label="Confirmation token:"

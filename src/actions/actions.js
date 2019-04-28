@@ -8,7 +8,8 @@ import { BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_ERROR, BLOG_POST_LIST_RECEIVED, 
         USER_PROFILE_RECEIVED,
         USER_SET_ID,
         COMMENT_ADDED,
-        BLOG_POST_LIST_SET_PAGE} from "./constants";
+        BLOG_POST_LIST_SET_PAGE,
+        USER_REGISTER_SUCCESS} from "./constants";
 import { SubmissionError } from 'redux-form';
 import { parseApiErrors } from "../apiUtils";
 
@@ -159,9 +160,16 @@ export const userLoginAttempt = (username, password) => {
 //     };
 // };
 
+export const userRegisterSuccess = () => {
+    return {
+        type: USER_REGISTER_SUCCESS
+    };
+};
+
 export const userRegister = (values) => {
     return (dispatch) => {
         return requests.post('/users', values, false)
+            .then(() => dispatch(userRegisterSuccess()))
             .catch(error => {
                 throw new SubmissionError(parseApiErrors(error));
             });

@@ -20,7 +20,6 @@ class RegisterForm extends React.Component {
         return this.props.userRegister(values)
             .then(() => {
                 this.props.reset();
-                this.props.history.push('/');
             });
     }
 
