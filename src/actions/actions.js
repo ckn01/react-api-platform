@@ -10,7 +10,8 @@ import { BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_ERROR, BLOG_POST_LIST_RECEIVED, 
         COMMENT_ADDED,
         BLOG_POST_LIST_SET_PAGE,
         USER_REGISTER_SUCCESS,
-        USER_CONFIRMATION_SUCCESS} from "./constants";
+        USER_CONFIRMATION_SUCCESS,
+        USER_REGISTER_COMPLETE} from "./constants";
 import { SubmissionError } from 'redux-form';
 import { parseApiErrors } from "../apiUtils";
 
@@ -192,6 +193,12 @@ export const userConfirm = (values) => {
                     _error: 'Confirmation token is invalid'
                 });
             });
+    };
+};
+
+export const UserRegisterComplete = () => {
+    return {
+        type: USER_REGISTER_COMPLETE
     };
 };
 
