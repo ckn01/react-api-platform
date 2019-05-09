@@ -5,6 +5,7 @@ import { canWriteBlogPost } from '../apiUtils';
 import { Redirect } from 'react-router';
 import { blogPostAdd } from '../actions/actions';
 import { renderField } from '../form';
+import { ImageUpload } from './ImageUpload';
 
 const mapDispatchToProps = {
     blogPostAdd
@@ -39,6 +40,7 @@ class BlogPostForm extends React.Component {
                     <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
                         <Field name="title" label="Title:" type="text" component={ renderField } />
                         <Field name="content" label="Content:" type="textarea" component={ renderField } />
+                        <ImageUpload />
 
                         <button type="submit" className="btn btn-primary btn-big btn-block" disabled={ submitting }>
                             Publish Now!
