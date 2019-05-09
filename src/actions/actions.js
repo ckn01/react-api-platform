@@ -1,6 +1,6 @@
 import { requests } from "../agent";
 import { BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_ERROR, BLOG_POST_LIST_RECEIVED, BLOG_POST_LIST_ADD,
-        BLOG_POST_REQUEST, BLOG_POST_ERROR, BLOG_POST_RECEIVED, BLOG_POST_ADD, BLOG_POST_UNLOAD,
+        BLOG_POST_REQUEST, BLOG_POST_ERROR, BLOG_POST_RECEIVED, BLOG_POST_UNLOAD,
         COMMENT_LIST_REQUEST, COMMENT_LIST_ERROR, COMMENT_LIST_RECEIVED, COMMENT_LIST_ADD, COMMENT_LIST_UNLOAD, 
         USER_LOGIN_SUCCESS, USER_LOGOUT,
         USER_PROFILE_REQUEST,
@@ -78,13 +78,22 @@ export const blogPostFetch = (id) => {
     }
 };
 
-export const blogPostAdd = () => ({
-    type: BLOG_POST_ADD,
-    data: {
-        id: Math.floor(Math.random() * 100 + 3),
-        title: 'A newly added blog post'
+export const blogPostAdd = (posts) => (dispatch => requests.post(
+    '/blog_posts',
+    {
+        ...posts,
+        slug: posts.title && posts.title.replace(/ /g, '-').toLowerCase()
     }
-});
+).catch(error => {
+    if (401 === error.response.status) {
+        return dispatch(userLogout());
+    } else if (403 === error.response.status) {
+        throw new SubmissionError({
+            _error: 'You do not have rights to publish blog posts!'
+        });
+    }
+    throw new SubmissionError(parseApiErrors(error));
+}));
 
 export const commentListRequest = () => ({
     type: COMMENT_LIST_REQUEST,
