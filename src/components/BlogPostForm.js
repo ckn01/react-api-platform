@@ -3,13 +3,14 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { canWriteBlogPost } from '../apiUtils';
 import { Redirect } from 'react-router';
-import { blogPostAdd } from '../actions/actions';
+import { blogPostAdd, blogPostFormUnload } from '../actions/actions';
 import { renderField } from '../form';
 import ImageUpload from './ImageUpload';
 import { ImageBrowser } from './ImageBrowser';
 
 const mapDispatchToProps = {
-    blogPostAdd
+    blogPostAdd,
+    blogPostFormUnload
 };
 
 const mapStateToProps = state => ({
@@ -19,13 +20,17 @@ const mapStateToProps = state => ({
 
 class BlogPostForm extends React.Component {
     onSubmit(values) {
-        const { blogPostAdd, reset, history } = this.props;
+        const { blogPostAdd, reset, history, images } = this.props;
 
-        return blogPostAdd(values)
+        return blogPostAdd(values, images)
             .then(() => {
                 reset();
                 history.push('/');
             });
+    }
+
+    componentWillUnmount() {
+        this.props.blogPostFormUnload();
     }
 
     render() {

@@ -14,7 +14,8 @@ import { BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_ERROR, BLOG_POST_LIST_RECEIVED, 
         USER_REGISTER_COMPLETE,
         IMAGE_UPLOADED,
         IMAGE_UPLOAD_REQUEST,
-        IMAGE_UPLOAD_ERROR} from "./constants";
+        IMAGE_UPLOAD_ERROR,
+        BLOG_POST_FORM_UNLOAD} from "./constants";
 import { SubmissionError } from 'redux-form';
 import { parseApiErrors } from "../apiUtils";
 
@@ -81,11 +82,12 @@ export const blogPostFetch = (id) => {
     }
 };
 
-export const blogPostAdd = (posts) => (dispatch => requests.post(
+export const blogPostAdd = (posts, images) => (dispatch => requests.post(
     '/blog_posts',
     {
         ...posts,
-        slug: posts.title && posts.title.replace(/ /g, '-').toLowerCase()
+        slug: posts.title && posts.title.replace(/ /g, '-').toLowerCase(),
+        images: images.map(image => `/api/images/${image.id}`)
     }
 ).catch(error => {
     if (401 === error.response.status) {
@@ -97,6 +99,10 @@ export const blogPostAdd = (posts) => (dispatch => requests.post(
     }
     throw new SubmissionError(parseApiErrors(error));
 }));
+
+export const blogPostFormUnload = () => ({
+    type: BLOG_POST_FORM_UNLOAD
+});
 
 export const commentListRequest = () => ({
     type: COMMENT_LIST_REQUEST,
