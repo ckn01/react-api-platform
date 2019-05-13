@@ -280,3 +280,7 @@ export const imageUpload = (file) => {
             .catch(() => dispatch(imageUploadError))
     }
 };
+
+export const imageDelete = (id) => {
+    return dispatch => requests.delete(`/images/${id}`)
+}

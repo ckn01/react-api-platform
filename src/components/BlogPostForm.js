@@ -3,14 +3,15 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { canWriteBlogPost } from '../apiUtils';
 import { Redirect } from 'react-router';
-import { blogPostAdd, blogPostFormUnload } from '../actions/actions';
+import { blogPostAdd, blogPostFormUnload, imageDelete } from '../actions/actions';
 import { renderField } from '../form';
 import ImageUpload from './ImageUpload';
 import { ImageBrowser } from './ImageBrowser';
 
 const mapDispatchToProps = {
     blogPostAdd,
-    blogPostFormUnload
+    blogPostFormUnload,
+    imageDelete
 };
 
 const mapStateToProps = state => ({
@@ -38,7 +39,7 @@ class BlogPostForm extends React.Component {
             return <Redirect to="/login" />
         }
 
-        const { submitting, handleSubmit, error, images, isImageUploading } = this.props;
+        const { submitting, handleSubmit, error, images, isImageUploading, imageDelete } = this.props;
         
         return (
             <div className="card mt-3 mb-6 shadow-sm">
@@ -49,7 +50,7 @@ class BlogPostForm extends React.Component {
                         <Field name="content" label="Content:" type="textarea" component={ renderField } />
                         
                         <ImageUpload />
-                        <ImageBrowser images={ images } />
+                        <ImageBrowser images={ images } deleteHandler={ imageDelete } />
 
                         <button type="submit" className="btn btn-primary btn-big btn-block"
                             disabled={ submitting || isImageUploading }>

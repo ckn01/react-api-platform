@@ -3,13 +3,18 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 export class ImageBrowser extends React.Component {
     render() {
-        const { images } = this.props;
+        const { images, deleteHandler } = this.props;
 
         return (
             <div className="row mt-4 mb-4">
                 <TransitionGroup component={ null }>
                     {
                         images.map(image => {
+                            const onImageDeleteClick = event => {
+                                event.preventDefault();
+                                deleteHandler(image.id);
+                            };
+
                             return (
                                 <CSSTransition timeout={1000} classNames="fade" key={ image.id }>
                                     <div className="col-md-6 col-lg-4">
@@ -18,7 +23,9 @@ export class ImageBrowser extends React.Component {
                                                 className="img-fluid" alt="browser" />
                                         </div>
                                         <div className="mb-2">
-                                            <button type="button" className="btn btn-outline-danger btn-sm">
+                                            <button type="button" 
+                                                className="btn btn-outline-danger btn-sm"
+                                                onClick={ onImageDeleteClick }>
                                                 Remove
                                             </button>
                                         </div>
