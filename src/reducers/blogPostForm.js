@@ -1,36 +1,38 @@
-import { IMAGE_UPLOAD_REQUEST, IMAGE_UPLOADED, IMAGE_UPLOAD_ERROR, BLOG_POST_FORM_UNLOAD, IMAGE_DELETED } from "../actions/constants";
+import { IMAGE_UPLOAD_REQUEST, IMAGE_UPLOADED, IMAGE_UPLOAD_ERROR, BLOG_POST_FORM_UNLOAD, IMAGE_DELETED, IMAGE_DELETE_REQUEST } from "../actions/constants";
 
 export default (state = {
-    isImageUploading: false,
+    imageReqInProgress: false,
     images: []
 }, action) => {
     switch (action.type) {
         case IMAGE_UPLOAD_REQUEST:
+        case IMAGE_DELETE_REQUEST:
             return {
                 ...state,
-                isImageUploading: true
+                imageReqInProgress: true
             };
         case IMAGE_UPLOADED:
             return {
                 ...state,
-                isImageUploading: false,
+                imageReqInProgress: false,
                 images: state.images.concat(action.image)
             };
         case IMAGE_UPLOAD_ERROR:
             return {
                 ...state,
-                isImageUploading: false
+                imageReqInProgress: false
             };
         case BLOG_POST_FORM_UNLOAD:
             return {
                 ...state,
-                isImageUploading: false,
+                imageReqInProgress: false,
                 images: []
             };
         case IMAGE_DELETED:
             return {
                 ...state,
-                images: state.images.filter(image => image.id !== action.imageId)
+                images: state.images.filter(image => image.id !== action.imageId),
+                imageReqInProgress: false
             };
         default:
             return state;
