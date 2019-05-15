@@ -15,7 +15,8 @@ import { BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_ERROR, BLOG_POST_LIST_RECEIVED, 
         IMAGE_UPLOADED,
         IMAGE_UPLOAD_REQUEST,
         IMAGE_UPLOAD_ERROR,
-        BLOG_POST_FORM_UNLOAD} from "./constants";
+        BLOG_POST_FORM_UNLOAD,
+        IMAGE_DELETED} from "./constants";
 import { SubmissionError } from 'redux-form';
 import { parseApiErrors } from "../apiUtils";
 
@@ -283,4 +284,12 @@ export const imageUpload = (file) => {
 
 export const imageDelete = (id) => {
     return dispatch => requests.delete(`/images/${id}`)
-}
+        .then(() => dispatch(imageDeleted(id)));
+};
+
+export const imageDeleted = id => {
+    return {
+        type: IMAGE_DELETED,
+        imageId: id
+    };
+};
